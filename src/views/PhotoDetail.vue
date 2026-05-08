@@ -17,9 +17,7 @@
           <span v-if="photo.category"><el-icon><Folder /></el-icon> {{ photo.category.name }}</span>
           <span><el-icon><View /></el-icon> {{ photo.views }} 次浏览</span>
         </div>
-        <p class="photo-description">
-          <div v-html="photo.content"></div>
-        </p>
+        <div v-html="photo.content"></div>
         <div v-if="photo.tags?.length" class="photo-tags">
           <el-tag v-for="tag in photo.tags" :key="tag" class="tag" size="small">#{{ tag.name }}</el-tag>
         </div>
