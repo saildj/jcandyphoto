@@ -1,0 +1,227 @@
+<template>
+  <div class="sidebar-container">
+    <div class="profile-section">
+      <el-avatar :size="80" :src="avatar" @error="errorHandler" />
+      
+      <h2 class="blog-title">
+        <span class="title-candy">{{ mainTitle }}</span>
+        <span class="title-divider">·</span>
+        <span class="title-diary">{{ slaveTitle }}</span>
+      </h2>
+      <p class="blog-slogan">{{ slogan }}</p>
+    </div>
+
+    <el-menu
+      :default-active="currentRoute"
+      class="sidebar-menu"
+      :router="true"
+    >
+      <!-- 使用 v-for 根据 navItems 动态生成菜单 -->
+      <el-menu-item
+        v-for="item in navItems"
+        :key="item.path"
+        :index="item.path"
+      >
+        <el-icon>
+          <component :is="item.icon" />
+        </el-icon>
+        <span>{{ item.name }}</span>
+      </el-menu-item>
+    </el-menu>
+
+    <div class="footer">
+      <div class="footer-copyright">
+        <p>© {{ currentYear }} {{ appTitle }}</p>
+        <p>All Rights Reserved.</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed, onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { House, Picture, FolderOpened, User } from '@element-plus/icons-vue';
+import { useLoading } from '@/composables/useLoading';
+import { getUserAvatar } from '@/api/user';
+
+const {
+  // isLoading, 
+  startLoading, 
+  stopLoading 
+} = useLoading();
+
+const avatar = ref<string>('');
+const route = useRoute();
+const currentRoute = computed(() => {
+  const path = route.path;
+  // 特殊处理：/photo/:id 应该匹配 / 菜单项
+  if (path.startsWith('/photo/')) {
+    return '/';
+  }
+  for (const item of navItems) {
+    if (item.path !== '/' && path.startsWith(item.path)) {
+      return item.path;
+    }
+    if (item.path === '/' && path === '/') {
+      return item.path;
+    }
+  }
+  return path;
+});
+
+const errorHandler = () => true;
+
+const mainTitle = import.meta.env.VITE_APP_MAIN_TITLE || '糖果';
+const slaveTitle = import.meta.env.VITE_APP_SLAVE_TITLE || '光影春秋';
+const slogan = import.meta.env.VITE_APP_SLOGAN;
+const appTitle = getAppTitle();
+const currentYear = new Date().getFullYear()
+
+const navItems = [
+  { path: '/', name: '首页', icon: House },
+  { path: '/photos', name: '瀑布相片', icon: Picture },
+  { path: '/albums', name: '相册集', icon: FolderOpened },
+  { path: '/about', name: '关于', icon: User }
+]
+
+function getAppTitle() {
+  return mainTitle + ' · ' + slaveTitle;
+}
+
+const fetchAvatar = async () => {
+  startLoading();
+
+  try {
+    const res = await getUserAvatar({ id: 10});
+    if (res.success) {
+      const _avatar = res.data.avatar;
+      if (_avatar) {
+        avatar.value = _avatar;
+      } else {
+        avatar.value = 'https://picsum.photos/200/200?random=10';
+      }
+    }
+  } catch (error) {
+    
+  } finally {
+    stopLoading();
+  }
+}
+
+onMounted(async () => {
+  fetchAvatar();
+});
+
+</script>
+
+<style lang="scss" scoped>
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  height: 100%;
+
+  .profile-section {
+    text-align: center;
+    margin-bottom: 30px;
+
+    .el-avatar {
+      margin-bottom: 15px;
+    }
+
+    .blog-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+
+      .title-candy {
+        color: var(--color-primary)
+      }
+
+      .title-divider {
+        color: var(--color-deputy);
+        margin: 0 8px;
+        font-weight: 400;
+      }
+
+      .title-diary {
+        color: var(--color-secondary);
+      }
+    }
+
+    .blog-slogan {
+      font-size: 1rem;
+      color: var(--color-deputy);
+      opacity: 0.6;
+    }
+  }
+
+  .sidebar-menu {
+    width: 100%;
+    border-right: none;
+    flex-grow: 1;
+
+    .el-menu-item {
+      height: 50px;
+      line-height: 50px;
+      font-size: 16px;
+      color: #555;
+
+      &:hover {
+        background-color: #f0f2f5;
+      }
+
+      &.is-active {
+        color: var(--color-primary);
+        background-color: var(--bg-menu)
+      }
+    }
+  }
+
+  .footer {
+    width: 100%;
+    margin-top: auto;
+    border-top: 1px solid var(--border-deputy);
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .footer-copyright {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar-container {
+    padding: 60px 16px 20px;
+
+    .profile-section {
+      margin-bottom: 24px;
+
+      .el-avatar {
+        margin-bottom: 12px;
+      }
+
+      .blog-title {
+        font-size: 1.5rem;
+      }
+
+      .blog-slogan {
+        font-size: 0.9rem;
+      }
+    }
+
+    .sidebar-menu {
+      .el-menu-item {
+        height: 48px;
+        line-height: 48px;
+        font-size: 15px;
+      }
+    }
+  }
+}
+</style>
