@@ -9,6 +9,12 @@
             <p class="title">{{ author.work }}</p>
           </div>
         </div>
+        <div class="header-right">
+          <div class="qr-code">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=Placeholder" alt="QR Code" />
+          </div>
+          <p class="qr-desc">扫码联系作者</p>
+        </div>
       </div>
 
       <div class="divider-line"></div>
@@ -157,7 +163,8 @@ onMounted(async () => {
   .about-header {
     display: flex;
     align-items: center;
-    margin-bottom: 32px;
+    justify-content: space-between;
+    margin-bottom: 10px;
 
     .header-left {
       display: flex;
@@ -191,13 +198,45 @@ onMounted(async () => {
         }
       }
     }
+
+    .header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+
+      .qr-code {
+        width: 80px;
+        height: 80px;
+        padding: 4px;
+        background: #fff;
+        border-radius: 8px;
+        border: 1px solid #e8dcc8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+
+      .qr-desc {
+        font-size: 12px;
+        color: #999;
+        margin: 0;
+        letter-spacing: 0.5px;
+      }
+    }
   }
 
   .divider-line {
     height: 2px;
     border: none;
     border-top: 2px solid #d4c4a8;
-    margin: 24px 0;
+    margin: 10px 0;
   }
 
   .divider-line-thin {
@@ -328,6 +367,9 @@ onMounted(async () => {
     }
 
     .about-header {
+      flex-direction: column;
+      gap: 20px;
+
       .header-left {
         flex-direction: column;
         text-align: center;
@@ -337,6 +379,11 @@ onMounted(async () => {
             font-size: 28px;
           }
         }
+      }
+
+      .header-right {
+        display: flex;
+        justify-content: center;
       }
     }
 
