@@ -1,36 +1,77 @@
 # jCandyPhoto
 
-#### Description
-{**When you're done, you can delete the content in this README and update the file with details for others getting started with your repository**}
+A minimalist, elegant photo blog built with Vue 3 and TypeScript. Designed for creators to showcase their photography and thoughts in a clean, aesthetic digital garden.
 
-#### Software Architecture
-Software architecture description
+## 🌟 Features
 
-#### Installation
+- 📸 **Photography Showcase**: Beautifully presented photo galleries and albums.
+- ✍️ **Markdown Support**: Integrated Markdown rendering for blog posts and descriptions.
+- 📱 **Fully Responsive**: Optimized for various devices, from desktops to mobile phones.
+- 🎨 **Modern UI**: Clean design using Element Plus and FontAwesome icons.
+- ⚡ **Performant**: Powered by Vite for lightning-fast development and build.
+- 🌑 **Aesthetic Design**: Carefully crafted layouts with a focus on visual storytelling.
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## 🛠️ Tech Stack
 
-#### Instructions
+- **Framework**: [Vue 3](https://vuejs.org/) (Composition API)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **State Management**: [Pinia](https://pinia.vuejs.org/)
+- **Routing**: [Vue Router](https://router.vuejs.org/)
+- **UI Components**: [Element Plus](https://element-plus.org/)
+- **Icons**: [FontAwesome](https://fontawesome.com/)
+- **Styles**: [SCSS](https://sass-lang.com/)
+- **Utils**: Axios, Day.js, VueUse, Dompurify, Marked
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## 🚀 Getting Started
 
-#### Contribution
+### Prerequisites
 
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
+- Node.js (Latest LTS recommended)
+- [pnpm](https://pnpm.io/) (Recommended) or npm/yarn
 
+### Installation
 
-#### Gitee Feature
+1. Clone the repository:
+   ```bash
+   git clone https://gitee.com/hankJF/jcandyphoto.git
+   cd jcandyphoto
+   ```
 
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+
+3. Run the development server:
+   ```bash
+   pnpm dev
+   ```
+
+4. Build for production:
+   ```bash
+   pnpm build
+   ```
+
+## 📂 Project Structure
+
+```text
+src/
+├── api/          # API services (axios instances)
+├── assets/       # Global styles and static assets
+├── components/   # Reusable UI components (Layout, Core, Common)
+├── composables/  # Vue composables for logic reuse
+├── plugins/      # External plugin configurations
+├── router/       # Routing configuration
+├── types/        # TypeScript interfaces and type definitions
+├── utils/        # Helper functions and utilities
+└── views/        # Main page components (Home, About, Albums, Photos)
+```
+
+## 📄 License
+
+This project is licensed under the [Apache-2.0 License](LICENSE).
+
+---
+
+Developed with ❤️ by [jfx](https://gitee.com/hankJF).

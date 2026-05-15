@@ -6,21 +6,21 @@
           <div class="avatar-icon">📚</div>
           <div class="header-info">
             <h1 class="name">{{ author.name }}</h1>
-            <p class="title">{{ author.work }}</p>
+            <p class="title">{{ author.job }}</p>
           </div>
         </div>
         <div class="header-right">
           <div class="qr-code">
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=Placeholder" alt="QR Code" />
           </div>
-          <p class="qr-desc">扫码联系作者</p>
+          <p class="qr-desc">扫码在手机端打开</p>
         </div>
       </div>
 
       <div class="divider-line"></div>
 
       <div class="quote-section">
-        <p class="quote">{{ author.slogan }}</p>
+        <p class="quote">{{ author.motto }}</p>
       </div>
 
       <p class="description">
@@ -112,8 +112,8 @@ const {
 
 const author = ref<UserProfile>({
   name: '解点迷',
-  work: '独立创作者 & 全栈设计师',
-  slogan: '“ 写作是思想的散步，设计是理性的浪漫。”',
+  job: '独立创作者 & 全栈设计师',
+  motto: '“ 写作是思想的散步，设计是理性的浪漫。”',
   shortBio: "写过代码，拍过山川，现在用文字与设计搭建数字花园。相信好的故事能跨越边界，连接真实的人。",
   detailedBio: "前软件工程师，现自由内容创作者。在互联网行业浮沉5年后，决定用更温柔的方式探索技术与人文的交叉点。目前专注于个人知识库、独立博客写作及UI设计。喜爱咖啡、胶片摄影和周末徒步。",
   location: "中国 · 杭州",
@@ -131,6 +131,12 @@ const getUserProfile = async () => {
       const user: User = res.data;
       if (user) {
         author.value.name = user.nickname;
+        author.value.detailedBio = user.bio;
+        author.value.interests = user.hobbies || [];
+        author.value.location = user.location;
+        author.value.email = user.email;
+        author.value.motto = user.motto || '“ 写作是思想的散步，设计是理性的浪漫。”';
+        author.value.job = user.job || '';
       }
     }
   } catch (error) {
@@ -141,7 +147,7 @@ const getUserProfile = async () => {
 }
 
 onMounted(async () => {
-  getUserProfile();
+  await getUserProfile();
 });
 
 </script>
