@@ -62,30 +62,30 @@
       <div class="divider-line-thin"></div>
 
       <div class="footer-section">
-        <div class="social-icons">
-          <div class="social-icon">
-            <span class="icon-text">
-              <FaIcon :icon="faGithub" />
-            </span>
-          </div>
-          <div class="social-icon">
-            <span class="icon-text">
-              <FaIcon :icon="faQq" />
-            </span>
-          </div>
-          <div class="social-icon">
-            <span class="icon-text">
-              <FaIcon :icon="faWeibo" />
-            </span>
-          </div>
-        </div>
+      <div class="social-icons">
+        <a :href="author.github" target="_blank" class="social-icon">
+          <span class="icon-text">
+            <FaIcon :icon="faGithub" />
+          </span>
+        </a>
+        <a :href="author.twitter" target="_blank" class="social-icon">
+          <span class="icon-text">
+            <FaIcon :icon="faTwitter" />
+          </span>
+        </a>
+        <a :href="author.weibo" target="_blank" class="social-icon">
+          <span class="icon-text">
+            <FaIcon :icon="faWeibo" />
+          </span>
+        </a>
+      </div>
         <div class="signature">
-          <span>✍️ 手写回信，见字如晤</span>
+          <span>{{ TEXT_SIGNNATURE }}</span>
         </div>
       </div>
 
       <div class="bottom-quote">
-        <p>🌿“在数字时代，保留一份手工的真诚”</p>
+        <p>{{ TEXT_BOTTOM_QUOTE }}</p>
       </div>
     </div>
   </div>
@@ -97,10 +97,9 @@ import { useLoading } from '@/composables/useLoading';
 import { User, UserProfile } from '@/types';
 import { 
   faGithub, 
-  // faTwitter,
+  faTwitter,
   // faFacebook,
   faWeibo,
-  faQq
 } from '@fortawesome/free-brands-svg-icons'
 import { onMounted, ref } from 'vue';
 
@@ -119,8 +118,10 @@ const author = ref<UserProfile>({
   location: "中国 · 杭州",
   interests: ['旅行', '看书', '手冲咖啡', '解放鞋'],
   email: "hello@linyian.com",
-  funFact: "从0到1搭建过3个独立项目，最近沉迷于用Tailwind CSS与Figma做设计系统。"
+  funFact: "从0到1搭建过3个独立项目，最近沉迷于用Tailwind CSS与Figma做设计系统。",
 });
+const TEXT_SIGNNATURE = ref<string>('✍️ 手写回信，见字如晤');
+const TEXT_BOTTOM_QUOTE = ref<string>('🌿 在数字时代，保留一份手工的真诚');
 
 const getUserProfile = async () => {
   startLoading();
@@ -137,6 +138,9 @@ const getUserProfile = async () => {
         author.value.email = user.email;
         author.value.motto = user.motto || '“ 写作是思想的散步，设计是理性的浪漫。”';
         author.value.job = user.job || '';
+        author.value.github = user.github || '';
+        author.value.twitter = user.twitter || '';
+        author.value.weibo = user.weibo || '';
       }
     }
   } catch (error) {
@@ -331,9 +335,12 @@ onMounted(async () => {
         justify-content: center;
         cursor: pointer;
         transition: all 0.3s ease;
+        text-decoration: none;
+        color: inherit;
 
         &:hover {
           background: #d4c4a8;
+          transform: translateY(-2px);
         }
 
         .icon-text {

@@ -18,7 +18,7 @@ export interface User {
   hobbies?: string[];
   github?: string;
   weibo?: string;
-  zhihu?: string;
+  twitter?: string;
   website?: string;
   motto?: string;
   job?: string;
@@ -48,4 +48,7 @@ export interface UserProfile {
   interests: string[];
   email: string;
   funFact: string;
+  github?: string;
+  twitter?: string;
+  weibo?: string;
 }
