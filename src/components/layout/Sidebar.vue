@@ -34,6 +34,14 @@
         <p>© {{ currentYear }} {{ appTitle }}</p>
         <p>All Rights Reserved.</p>
       </div>
+      <div class="footer-beian">
+        <a v-if="icpLicense" href="https://beian.miit.gov.cn/" target="_blank">
+          {{ icpLicense }}
+        </a>
+        <a v-if="publicSecurityLicense" href="http://www.beian.gov.cn/" target="_blank">
+          {{ publicSecurityLicense }}
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -51,8 +59,11 @@ const {
   stopLoading 
 } = useLoading();
 
-const avatar = ref<string>('');
 const route = useRoute();
+const avatar = ref<string>('');
+const icpLicense = ref<string | null>('');
+const publicSecurityLicense = ref<string | null>('');
+
 const currentRoute = computed(() => {
   const path = route.path;
   // 特殊处理：/photo/:id 应该匹配 / 菜单项
@@ -101,6 +112,8 @@ const fetchAvatar = async () => {
       } else {
         avatar.value = 'https://picsum.photos/200/200?random=10';
       }
+      icpLicense.value = res.data.icpLicense || null;
+      publicSecurityLicense.value = res.data.publicSecurityLicense || null;
     }
   } catch (error) {
     
@@ -184,14 +197,33 @@ onMounted(async () => {
     width: 100%;
     margin-top: auto;
     border-top: 1px solid var(--border-deputy);
+    padding: 15px 0;
     font-size: 12px;
     color: #999;
     text-align: center;
-    line-height: 1.5;
+    line-height: 1.6;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      display: block;
+      transition: color 0.3s;
+
+      &:hover {
+        color: var(--color-primary);
+        text-decoration: underline;
+      }
+    }
   }
 
   .footer-copyright {
-    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+
+  .footer-beian {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
 }
 

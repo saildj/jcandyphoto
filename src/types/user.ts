@@ -22,6 +22,8 @@ export interface User {
   website?: string;
   motto?: string;
   job?: string;
+  icpLicense?: string;
+  publicSecurityLicense?: string;
 }
 
 export interface LoginForm {
