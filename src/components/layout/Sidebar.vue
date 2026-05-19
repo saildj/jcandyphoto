@@ -145,7 +145,7 @@ onMounted(async () => {
     }
 
     .blog-title {
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: bold;
       margin-bottom: 5px;
 
