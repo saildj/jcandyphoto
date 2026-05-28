@@ -22,7 +22,7 @@ export function useLoading(options: LoadingOptions = {}) {
   const {
     initialLoading = false,
     loadingText = '加载中...',
-    showError = true,
+    // showError = true,
     autoReset = true,
     resetDelay = 3000
   } = options

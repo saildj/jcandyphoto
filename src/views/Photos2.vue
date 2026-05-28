@@ -3,14 +3,8 @@
     <div class="content-section">
       <div class="section-header">
         <h1 class="section-title">所有照片</h1>
-        <el-input
-          v-model="searchQuery"
-          placeholder="搜索照片..."
-          :prefix-icon="Search"
-          clearable
-          class="search-input"
-          @keyup.enter="handleSearch"
-        />
+        <el-input v-model="searchQuery" placeholder="搜索照片..." :prefix-icon="Search" clearable class="search-input"
+          @keyup.enter="handleSearch" />
       </div>
 
       <div v-if="loading" class="photo-grid">
@@ -22,29 +16,19 @@
       </div>
 
       <div v-else class="empty-state">
-        <el-icon class="empty-icon"><Picture /></el-icon>
+        <el-icon class="empty-icon">
+          <Picture />
+        </el-icon>
         <p class="empty-text">暂无照片</p>
       </div>
 
       <!-- 加载更多按钮 -->
       <div v-if="hasMore" class="load-more-wrapper">
-        <el-button
-          v-if="!loading"
-          type="primary"
-          size="large"
-          @click="handlePageChange(current + 1)"
-          class="load-more-btn"
-        >
+        <el-button v-if="!loading" type="primary" size="large" @click="handlePageChange(current + 1)"
+          class="load-more-btn">
           加载更多
         </el-button>
-        <el-button
-          v-else
-          type="primary"
-          size="large"
-          loading
-          disabled
-          class="load-more-btn"
-        >
+        <el-button v-else type="primary" size="large" loading disabled class="load-more-btn">
           加载中...
         </el-button>
       </div>
@@ -58,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Search, Picture } from '@element-plus/icons-vue';
 import PhotoCard from '@/components/common/PhotoCard.vue';
 import { getPhotos, searchPhotos } from '@/api/photo';
