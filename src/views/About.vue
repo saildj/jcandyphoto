@@ -43,8 +43,7 @@
             <p>
               <template v-for="(item, index) in author.interests" :key="index">
                 {{ item }}
-                <el-divider v-if="index !== author.interests.length - 1" 
-                  direction="vertical" class="hobby-divider" />
+                <el-divider v-if="index !== author.interests.length - 1" direction="vertical" class="hobby-divider" />
               </template>
             </p>
           </div>
@@ -62,23 +61,23 @@
       <div class="divider-line-thin"></div>
 
       <div class="footer-section">
-      <div class="social-icons">
-        <a :href="author.github" target="_blank" class="social-icon">
-          <span class="icon-text">
-            <FaIcon :icon="faGithub" />
-          </span>
-        </a>
-        <a :href="author.twitter" target="_blank" class="social-icon">
-          <span class="icon-text">
-            <FaIcon :icon="faTwitter" />
-          </span>
-        </a>
-        <a :href="author.weibo" target="_blank" class="social-icon">
-          <span class="icon-text">
-            <FaIcon :icon="faWeibo" />
-          </span>
-        </a>
-      </div>
+        <div class="social-icons">
+          <a :href="author.github" target="_blank" class="social-icon">
+            <span class="icon-text">
+              <FaIcon :icon="faGithub" />
+            </span>
+          </a>
+          <a :href="author.twitter" target="_blank" class="social-icon">
+            <span class="icon-text">
+              <FaIcon :icon="faTwitter" />
+            </span>
+          </a>
+          <a :href="author.weibo" target="_blank" class="social-icon">
+            <span class="icon-text">
+              <FaIcon :icon="faWeibo" />
+            </span>
+          </a>
+        </div>
         <div class="signature">
           <span>{{ TEXT_SIGNNATURE }}</span>
         </div>
@@ -95,8 +94,8 @@
 import { getUserInfo } from '@/api/user';
 import { useLoading } from '@/composables/useLoading';
 import { User, UserProfile } from '@/types';
-import { 
-  faGithub, 
+import {
+  faGithub,
   faTwitter,
   // faFacebook,
   faWeibo,
@@ -105,8 +104,8 @@ import { onMounted, ref } from 'vue';
 
 const {
   // isLoading, 
-  startLoading, 
-  stopLoading 
+  startLoading,
+  stopLoading
 } = useLoading();
 
 const author = ref<UserProfile>({
@@ -127,7 +126,7 @@ const getUserProfile = async () => {
   startLoading();
 
   try {
-    const res = await getUserInfo({ id: 10});
+    const res = await getUserInfo({ id: 1 });
     if (res.success) {
       const user: User = res.data;
       if (user) {
@@ -307,8 +306,8 @@ onMounted(async () => {
         }
 
         .hobby-divider {
-          height: 10px; 
-          border-left-color: #b98a63; 
+          height: 10px;
+          border-left-color: #b98a63;
           opacity: 0.4;
         }
       }
