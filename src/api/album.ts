@@ -1,9 +1,12 @@
-import { defaultPageAlbum, defaultPageResult } from '@/utils/funcUtils';
-import { get, post, put, del } from './request';
+import { accessUrl, defaultPageAlbum, defaultPageResult } from '@/utils/funcUtils';
+import { get } from './request';
 import type { Album, AlbumQuery, PageResult, PageResultAlbum, ResponseData } from '@/types';
 
+function makeUrl(url: string) {
+  return accessUrl('PH', url)
+}
+
 export function getAlbums(params: AlbumQuery): Promise<ResponseData<PageResult<Album>>> {
-  // return get('/photos/group/tag', { params });
   const { flag } = params;
   if (flag === 'tag') {
     return getTagAlbums(params);
@@ -15,11 +18,11 @@ export function getAlbums(params: AlbumQuery): Promise<ResponseData<PageResult<A
 }
 
 function getTagAlbums(params: AlbumQuery): Promise<ResponseData<PageResult<Album>>> {
-  return get('/photos/group/tag', { params });
+  return get(makeUrl('/group/tag'), { params });
 }
 
 function getCategoryAlbums(params: AlbumQuery): Promise<ResponseData<PageResult<Album>>> {
-  return get('/photos/group/category', { params });
+  return get(makeUrl('/group/category'), { params });
 }
 
 export function getAlbumById(id: number, params: AlbumQuery): Promise<ResponseData<PageResultAlbum>> {
@@ -34,21 +37,10 @@ export function getAlbumById(id: number, params: AlbumQuery): Promise<ResponseDa
 }
 
 function getAlbumPhotosByTagId(id: number, params: AlbumQuery): Promise<ResponseData<PageResultAlbum>> {
-  return get(`/photos/tag/${id}`, { params })
+  return get(makeUrl(`/tag/${id}`), { params })
 }
 
 function getAlbumPhotosByCategoryId(id: number, params: AlbumQuery): Promise<ResponseData<PageResultAlbum>> {
-  return get(`/photos/category/${id}`, { params })
+  return get(makeUrl(`/category/${id}`), { params })
 }
 
-export function createAlbum(data: Partial<Album>): Promise<ResponseData<Album>> {
-  return post('/albums', data);
-}
-
-export function updateAlbum(id: number, data: Partial<Album>): Promise<ResponseData<Album>> {
-  return put(`/albums/${id}`, data);
-}
-
-export function deleteAlbum(id: number): Promise<ResponseData<null>> {
-  return del(`/albums/${id}`);
-}

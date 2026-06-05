@@ -83,4 +83,13 @@ export async function defaultPageAlbum(): Promise<ResponseData<PageResultAlbum>>
 	}
 }
 
+const MAP_URL: Record<string, string> = {
+  'PH': '/photos',
+  'CO': '/comment',
+  'AU': '/auth',
+}
+
+export function accessUrl(code: string, url: string) {
+  return `${MAP_URL[code]}${url}`
+}
 
